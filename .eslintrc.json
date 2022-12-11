@@ -10,6 +10,9 @@
     "overrides": [
     ],
     "parserOptions": {
+        "ecmaFeatures": {
+            "modules": true
+        },
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
