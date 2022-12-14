@@ -1,3 +1,5 @@
+import { PageHeader } from '../../PageHeader';
+
 export function EditContact() {
-  return 'EditContact';
+  return <PageHeader title="Editar Jander Liborio" />;
 }
