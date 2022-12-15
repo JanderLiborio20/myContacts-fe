@@ -19,7 +19,7 @@ export function Home() {
 
       <Header>
         <strong>3 contatos</strong>
-        <a href="/">Novo contato</a>
+        <a href="/new">Novo contato</a>
       </Header>
 
       <ListContainer>
@@ -41,7 +41,7 @@ export function Home() {
           </div>
 
           <div className="actions">
-            <a href="/">
+            <a href="/edit/123">
               <img src={edit} alt="edit" />
             </a>
             <button type="button">
@@ -50,45 +50,6 @@ export function Home() {
           </div>
         </Card>
 
-        <Card>
-          <div className="info">
-            <div className="contact-name">
-              <strong>Jander Liborio</strong>
-              <small>Instagram</small>
-            </div>
-            <span>jandernunes14@gmail.com</span>
-            <span>(92) 99156-9974</span>
-          </div>
-
-          <div className="actions">
-            <a href="/">
-              <img src={edit} alt="edit" />
-            </a>
-            <button type="button">
-              <img src={trash} alt="Delete" />
-            </button>
-          </div>
-        </Card>
-
-        <Card>
-          <div className="info">
-            <div className="contact-name">
-              <strong>Jander Liborio</strong>
-              <small>Instagram</small>
-            </div>
-            <span>jandernunes14@gmail.com</span>
-            <span>(92) 99156-9974</span>
-          </div>
-
-          <div className="actions">
-            <a href="/">
-              <img src={edit} alt="edit" />
-            </a>
-            <button type="button">
-              <img src={trash} alt="Delete" />
-            </button>
-          </div>
-        </Card>
       </ListContainer>
     </Container>
   );

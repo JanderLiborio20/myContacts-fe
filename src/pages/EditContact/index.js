@@ -1,11 +1,11 @@
 import { PageHeader } from '../../components/PageHeader';
-import Input from '../../components/Input';
+import { ContactForm } from '../../components/ContactForm';
 
 export function EditContact() {
   return (
     <>
       <PageHeader title="Editar Jander Liborio" />
-      <Input type="text" placeholder="Nome" />
+      <ContactForm buttonLabel="Salvar alterações" />
     </>
   );
 }
