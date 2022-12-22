@@ -54,3 +54,7 @@ export function Home() {
     </Container>
   );
 }
+
+fetch('http://localhost:3001/contacts').then((response) => {
+  console.log(response);
+}).catch((error) => console.log(error));
