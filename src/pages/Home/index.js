@@ -1,7 +1,8 @@
+import { useEffect, useState } from 'react';
 import {
   Container,
   Header,
-  ListContainer,
+  ListHearder,
   Card,
   InputSearchContainer,
 } from './styles';
@@ -11,6 +12,22 @@ import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
 export function Home() {
+  const [contacts, setContacts] = useState([]);
+  const [orderBy, setOrderBy] = useState('asc');
+
+  useEffect(() => {
+    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
+      .then(async (response) => {
+        const json = await response.json();
+        setContacts(json);
+      })
+      .catch((error) => console.log(error));
+  }, [orderBy]);
+
+  function handleToggleOrderBy() {
+    setOrderBy((prevState) => (prevState === 'asc' ? 'desc' : 'asc'));
+  }
+
   return (
     <Container>
       <InputSearchContainer>
@@ -18,30 +35,33 @@ export function Home() {
       </InputSearchContainer>
 
       <Header>
-        <strong>3 contatos</strong>
+        <strong>
+          {contacts.length}
+          {contacts.length === 1 ? ' contato' : ' contatos'}
+        </strong>
         <a href="/new">Novo contato</a>
       </Header>
 
-      <ListContainer>
-        <header>
-          <button type="button">
-            <span>Nome</span>
-            <img src={arrow} alt="arrow" />
-          </button>
-        </header>
+      <ListHearder orderBy={orderBy}>
+        <button type="button" onClick={handleToggleOrderBy}>
+          <span>Nome</span>
+          <img src={arrow} alt="arrow" />
+        </button>
+      </ListHearder>
 
-        <Card>
+      {contacts.map((contact) => (
+        <Card key={contact.id}>
           <div className="info">
             <div className="contact-name">
-              <strong>Jander Liborio</strong>
-              <small>Instagram</small>
+              <strong>{contact.name}</strong>
+              {contact.category_name && <small>{contact.category_name}</small>}
             </div>
-            <span>jandernunes14@gmail.com</span>
-            <span>(92) 99156-9974</span>
+            <span>{contact.email}</span>
+            <span>{contact.phone}</span>
           </div>
 
           <div className="actions">
-            <a href="/edit/123">
+            <a href={`/edit/${contact.id}`}>
               <img src={edit} alt="edit" />
             </a>
             <button type="button">
@@ -49,12 +69,7 @@ export function Home() {
             </button>
           </div>
         </Card>
-
-      </ListContainer>
+      ))}
     </Container>
   );
 }
-
-fetch('http://localhost:3001/contacts').then((response) => {
-  console.log(response);
-}).catch((error) => console.log(error));
