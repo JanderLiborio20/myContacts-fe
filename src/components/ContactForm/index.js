@@ -100,7 +100,9 @@ export function ContactForm({ buttonLabel }) {
           value={category}
           onChange={(event) => setCategory(event.target.value)}
         >
-          <option value="">Categoria</option>
+          <option value="" disabled selected className="oi">
+            Categoria
+          </option>
           <option value="instagram">instagram</option>
           <option value="Facebook">Facebook</option>
           <option value="Telegram">Telegram</option>
@@ -108,7 +110,9 @@ export function ContactForm({ buttonLabel }) {
       </FormGroup>
 
       <ButtonContainer>
-        <Button type="submit" disabled={!isFormVAlid}>{buttonLabel}</Button>
+        <Button type="submit" disabled={!isFormVAlid}>
+          {buttonLabel}
+        </Button>
       </ButtonContainer>
     </Form>
   );

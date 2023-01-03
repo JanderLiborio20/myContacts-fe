@@ -11,9 +11,8 @@ import arrow from '../../assets/images/icons/arrow.svg';
 import edit from '../../assets/images/icons/edit.svg';
 import trash from '../../assets/images/icons/trash.svg';
 
-import { delay } from '../../utils/delay';
-
 import { Loader } from '../../components/Loader';
+import ContactsService from '../../services/ContactsService';
 
 export function Home() {
   const [contacts, setContacts] = useState([]);
@@ -28,17 +27,21 @@ export function Home() {
   );
 
   useEffect(() => {
-    setIsLoading(true);
+    async function loadContacts() {
+      try {
+        setIsLoading(true);
 
-    fetch(`http://localhost:3001/contacts?orderBy=${orderBy}`)
-      .then(async (response) => {
-        await delay(500);
+        const contactsList = await ContactsService.listContacts(orderBy);
 
-        const json = await response.json();
-        setContacts(json);
-      })
-      .catch((error) => console.log(error))
-      .finally(() => setIsLoading(false));
+        setContacts(contactsList);
+      } catch (error) {
+        console.log('error', error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadContacts();
   }, [orderBy]);
 
   function handleToggleOrderBy() {
@@ -100,6 +103,7 @@ export function Home() {
           </div>
         </Card>
       ))}
+
     </Container>
   );
 }
